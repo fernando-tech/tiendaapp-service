@@ -27,7 +27,7 @@ public class EmpleadoDto implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime  fechaSalida;
 	
-	private Boolean activo;
+	private boolean activo;
 	
 	private RolDto rol;
 
@@ -79,11 +79,11 @@ public class EmpleadoDto implements Serializable {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Boolean getActivo() {
+	public boolean getActivo() {
 		return activo;
 	}
 
-	public void setActivo(Boolean activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 

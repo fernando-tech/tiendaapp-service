@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -44,9 +46,10 @@ public class Empleado implements Serializable {
 	private LocalDateTime  fechaSalida;
 	
 	@Column(name = "activo")
-	private Boolean activo;
+	private boolean activo;
 	
-	@Column(name = "id_rol")
+	@ManyToOne
+    @JoinColumn(name = "id_rol")
 	private Rol rol;
 
 	public Integer getIdEmpleado() {
@@ -96,12 +99,12 @@ public class Empleado implements Serializable {
 	public void setFechaSalida(LocalDateTime fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
-
-	public Boolean getActivo() {
+	
+	public boolean getActivo() {
 		return activo;
 	}
 
-	public void setActivo(Boolean activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
