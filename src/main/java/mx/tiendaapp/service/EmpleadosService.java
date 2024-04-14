@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import mx.tiendaapp.model.Empleado;
@@ -24,13 +27,13 @@ public class EmpleadosService implements IEmpleadosService {
 	 * Empleados activos
 	 */
 	@Override
-	public List<EmpleadoDto> empleadosActivos() {
+	public Page<EmpleadoDto> empleados(Integer page, Integer size) {
 		
-		List<Empleado> empleados = empleadosRepository.empleadosActivos();
+		Page<Empleado> empleados = empleadosRepository.findAll(PageRequest.of(page, size));
 		
 		List<EmpleadoDto> empleadosDto = empleados.stream().map(e -> mapper.map(e, EmpleadoDto.class)).collect(Collectors.toList());
 		
-		return empleadosDto;
+		return new PageImpl<>(empleadosDto, empleados.getPageable(), empleados.getTotalElements());
 	}
 
 }

@@ -1,11 +1,12 @@
 package mx.tiendaapp.service;
 
-import java.util.List;
+
+import org.springframework.data.domain.Page;
 
 import mx.tiendaapp.model.DTO.ProductoDto;
 
 public interface IProductosService {
 
-	List<ProductoDto> obtenerProductos();
+	Page<ProductoDto> obtenerProductos(Integer page, Integer size);
 
 }

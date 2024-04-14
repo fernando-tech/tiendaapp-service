@@ -44,6 +44,9 @@ public class Producto implements Serializable {
 	@ManyToOne
     @JoinColumn(name = "id_marca")
 	private Marca marca;
+	
+	@Column(name = "inventario")
+	private Integer inventario;
 
 	public Integer getIdProducto() {
 		return idProducto;
@@ -99,6 +102,14 @@ public class Producto implements Serializable {
 
 	public void setMarca(Marca marca) {
 		this.marca = marca;
+	}
+
+	public Integer getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(Integer inventario) {
+		this.inventario = inventario;
 	}
 	
 }

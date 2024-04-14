@@ -22,6 +22,8 @@ public class ProductoDto implements Serializable {
 	private CategoriaDto categoria;
 	
 	private MarcaDto marca;
+	
+	private Integer inventario;
 
 	public Integer getIdProducto() {
 		return idProducto;
@@ -77,6 +79,14 @@ public class ProductoDto implements Serializable {
 
 	public void setMarca(MarcaDto marca) {
 		this.marca = marca;
+	}
+
+	public Integer getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(Integer inventario) {
+		this.inventario = inventario;
 	}
 	
 }

@@ -1,10 +1,11 @@
 package mx.tiendaapp.service;
 
-import java.util.List;
+
+import org.springframework.data.domain.Page;
 
 import mx.tiendaapp.model.DTO.EmpleadoDto;
 
 public interface IEmpleadosService {
 
-	List<EmpleadoDto> empleadosActivos();
+	Page<EmpleadoDto> empleados(Integer page, Integer size);
 }

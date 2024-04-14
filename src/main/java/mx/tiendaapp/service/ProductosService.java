@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import mx.tiendaapp.model.Producto;
@@ -24,14 +27,14 @@ public class ProductosService implements IProductosService {
 	 * Obtener lista de productos
 	 */
 	@Override
-	public List<ProductoDto> obtenerProductos() {
-		List<Producto> productos = productosRepository.findAll();
+	public Page<ProductoDto> obtenerProductos(Integer page, Integer size) {
 		
-		List<ProductoDto> productosDto = productos.stream().map(p -> {
-			return mapper.map(p, ProductoDto.class);
-		}).collect(Collectors.toList());
+		Page<Producto> productos = productosRepository.findAll(PageRequest.of(page, size));
 		
-		return productosDto;
+		List<ProductoDto> productosDto = productos.stream().map(p -> mapper.map(p, ProductoDto.class))
+				.collect(Collectors.toList());
+		
+		return new PageImpl<>(productosDto, productos.getPageable(), productos.getTotalElements());
 	}
 
 }
