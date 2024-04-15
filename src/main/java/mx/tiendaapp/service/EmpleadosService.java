@@ -1,5 +1,6 @@
 package mx.tiendaapp.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,7 +11,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+
 import mx.tiendaapp.model.Empleado;
+import mx.tiendaapp.model.Rol;
+import mx.tiendaapp.model.DTO.EmpleadoAltaRequest;
 import mx.tiendaapp.model.DTO.EmpleadoDto;
 import mx.tiendaapp.repository.IEmpleadosRepository;
 
@@ -34,6 +38,51 @@ public class EmpleadosService implements IEmpleadosService {
 		List<EmpleadoDto> empleadosDto = empleados.stream().map(e -> mapper.map(e, EmpleadoDto.class)).collect(Collectors.toList());
 		
 		return new PageImpl<>(empleadosDto, empleados.getPageable(), empleados.getTotalElements());
+	}
+
+	/**
+	 * Alta del empleado
+	 */
+	@Override
+	public Boolean altaEmpleado(EmpleadoAltaRequest request) {
+		
+		Rol rol = new Rol();
+		rol.setIdRol(request.getPuesto());
+		
+		Empleado empleadoNuevo = new Empleado();
+		empleadoNuevo.setNombre(request.getNombre());
+		empleadoNuevo.setApellidoPaterno(request.getApellidoPaterno());
+		empleadoNuevo.setApellidoMaterno(request.getApellidoMaterno());
+		empleadoNuevo.setActivo(true);
+		empleadoNuevo.setFechaIngreso(LocalDateTime.now());
+		empleadoNuevo.setFechaSalida(null);
+		empleadoNuevo.setRol(rol);
+		
+		try {
+			empleadosRepository.save(empleadoNuevo);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	/**
+	 * Metodo para eliminar al empleado
+	 */
+	@Override
+	public Boolean eliminarEmpleado(Integer idEmpleado) {
+		
+		Empleado empleado = new Empleado();
+		empleado.setIdEmpleado(idEmpleado);
+		
+		try {
+			empleadosRepository.delete(empleado);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
 	}
 
 }

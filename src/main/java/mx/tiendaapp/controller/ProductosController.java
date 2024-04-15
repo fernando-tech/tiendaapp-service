@@ -6,10 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.tiendaapp.model.DTO.ProductoAltaRequest;
 import mx.tiendaapp.model.DTO.ProductoDto;
 import mx.tiendaapp.service.IProductosService;
 
@@ -31,4 +34,11 @@ public class ProductosController {
 		return new ResponseEntity<>(productos, HttpStatus.OK);
 	}
 	
+	@PostMapping
+	public ResponseEntity<Boolean> altaProducto(@RequestBody ProductoAltaRequest request){
+		
+		Boolean alta = productoService.altaProducto(request);
+		
+		return new ResponseEntity<>(alta, HttpStatus.CREATED);
+	}
 }

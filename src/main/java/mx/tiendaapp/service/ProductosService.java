@@ -10,7 +10,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import mx.tiendaapp.model.Categoria;
+import mx.tiendaapp.model.Marca;
 import mx.tiendaapp.model.Producto;
+import mx.tiendaapp.model.DTO.ProductoAltaRequest;
 import mx.tiendaapp.model.DTO.ProductoDto;
 import mx.tiendaapp.repository.IProductosRepository;
 
@@ -35,6 +38,37 @@ public class ProductosService implements IProductosService {
 				.collect(Collectors.toList());
 		
 		return new PageImpl<>(productosDto, productos.getPageable(), productos.getTotalElements());
+	}
+
+	/*
+	 * Alta de productos
+	 */
+	@Override
+	public Boolean altaProducto(ProductoAltaRequest request) {
+		
+		Marca marca = new Marca();
+		marca.setIdMarca(request.getMarca());
+		
+		Categoria categoria = new Categoria();
+		categoria.setIdCategoria(request.getCategoria());
+		
+		Producto producto = new Producto();
+		producto.setNombreProducto(request.getNombre().toUpperCase());
+		producto.setDescripcion(request.getDescripcion());
+		producto.setPrecio(request.getPrecio());
+		producto.setCodigoProducto(request.getCodigo());
+		producto.setInventario(request.getInventario());
+		producto.setCategoria(categoria);
+		producto.setMarca(marca);
+		
+		
+		try {
+			productosRepository.save(producto);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
 	}
 
 }

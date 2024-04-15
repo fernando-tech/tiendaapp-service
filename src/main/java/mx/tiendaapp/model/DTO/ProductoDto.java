@@ -17,7 +17,7 @@ public class ProductoDto implements Serializable {
 	
 	private String codigoProducto;
 	
-	private String precio;
+	private Double precio;
 	
 	private CategoriaDto categoria;
 	
@@ -57,11 +57,11 @@ public class ProductoDto implements Serializable {
 		this.codigoProducto = codigoProducto;
 	}
 
-	public String getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
