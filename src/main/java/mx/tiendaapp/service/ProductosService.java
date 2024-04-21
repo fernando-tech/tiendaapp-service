@@ -71,4 +71,74 @@ public class ProductosService implements IProductosService {
 		
 	}
 
+	@Override
+	public Boolean ventaProducto(List<ProductoDto> request) {
+		
+		return null;
+	}
+
+	@Override
+	public ProductoDto obtenerProducto(Integer idProducto) {
+		
+		Producto producto = productosRepository.findById(idProducto).orElse(null);
+		
+		if(producto == null) {
+			return null;
+		}
+		
+		ProductoDto productoDto = mapper.map(producto, ProductoDto.class);
+		
+		return productoDto;
+	}
+
+	/**
+	 * Metodo para actualizar el producto
+	 */
+	@Override
+	public Boolean actualizarProducto(Integer idProducto, ProductoAltaRequest request) {
+		
+		Producto producto = productosRepository.findById(idProducto).orElse(null);
+		
+		if(producto == null) {
+			return null;
+		}
+		
+		Categoria categoria = new Categoria();
+		categoria.setIdCategoria(request.getCategoria());
+		
+		Marca marca = new Marca();
+		marca.setIdMarca(request.getMarca());
+		
+		producto.setNombreProducto(request.getNombre());
+		producto.setDescripcion(request.getDescripcion());
+		producto.setCodigoProducto(request.getCodigo());
+		producto.setPrecio(request.getPrecio());
+		producto.setCategoria(categoria);
+		producto.setMarca(marca);
+		producto.setInventario(request.getInventario());
+		
+		try {
+			productosRepository.save(producto);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public Boolean eliminarProducto(Integer idProducto) {
+		
+		Producto producto = new Producto();
+		producto.setIdProducto(idProducto);
+		
+		try {
+			productosRepository.delete(producto);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
 }

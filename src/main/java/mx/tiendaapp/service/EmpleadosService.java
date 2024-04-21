@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import mx.tiendaapp.model.Empleado;
 import mx.tiendaapp.model.Rol;
+import mx.tiendaapp.model.DTO.EmpleadoActualizarDto;
 import mx.tiendaapp.model.DTO.EmpleadoAltaRequest;
 import mx.tiendaapp.model.DTO.EmpleadoDto;
 import mx.tiendaapp.repository.IEmpleadosRepository;
@@ -78,6 +79,50 @@ public class EmpleadosService implements IEmpleadosService {
 		
 		try {
 			empleadosRepository.delete(empleado);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	/**
+	 * Obtener empleado por id
+	 */
+	@Override
+	public EmpleadoDto empleado(Integer idEmpleado) {
+		
+		Empleado empleado = empleadosRepository.findById(idEmpleado).orElse(null);
+		
+		if(empleado == null) {
+			return null;
+		}
+		
+		EmpleadoDto empleadoDto = mapper.map(empleado, EmpleadoDto.class);
+		
+		return empleadoDto;
+	}
+
+	/**
+	 * Actualizar empleado
+	 */
+	@Override
+	public Boolean actualizarEmpleado(Integer idEmpleado, EmpleadoActualizarDto request) {
+		
+		Empleado empleado = empleadosRepository.findById(idEmpleado).orElse(null);
+		
+		if(empleado == null) {
+			return false;
+		}
+		
+		Rol rol = new Rol();
+		rol.setIdRol(request.getPuesto());
+		
+		empleado.setRol(rol);
+		empleado.setActivo(request.getEstatus());
+		
+		try {
+			empleadosRepository.save(empleado);
 			return true;
 		} catch (Exception e) {
 			return false;
