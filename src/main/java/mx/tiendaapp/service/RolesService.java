@@ -27,7 +27,7 @@ public class RolesService implements IRolesService {
 	@Override
 	public List<RolDto> roles() {
 		
-		List<Rol> roles = rolesRepository.findAll();
+		List<Rol> roles = rolesRepository.findRoles();
 		
 		List<RolDto> rolesDto = roles.stream().map(r -> mapper.map(r, RolDto.class)).collect(Collectors.toList());
 		

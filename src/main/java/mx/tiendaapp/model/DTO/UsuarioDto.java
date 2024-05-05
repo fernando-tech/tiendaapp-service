@@ -1,63 +1,46 @@
-package mx.tiendaapp.model;
+package mx.tiendaapp.model.DTO;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "empleados")
-public class Empleado implements Serializable {
+public class UsuarioDto implements Serializable {
 
 	/**
 	 * serial de la clase
 	 */
 	private static final long serialVersionUID = -5417021940376189978L;
 	
-	@Id
-	@Column(name = "id_empleado", updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEmpleado;
+	private Integer idUsuario;
 	
-	@Column(name = "nombre")
 	private String nombre;
 	
-	@Column(name = "apellido_p")
 	private String apellidoPaterno;
 	
-	@Column(name = "apellido_m")
 	private String apellidoMaterno;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@Column(name = "fecha_ingreso")
 	private LocalDateTime fechaIngreso;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@Column(name = "fecha_salida")
 	private LocalDateTime  fechaSalida;
 	
-	@Column(name = "activo")
 	private boolean activo;
 	
-	@ManyToOne
-    @JoinColumn(name = "id_rol")
-	private Rol rol;
+	private RolDto rol;
+	
+	private boolean externo;
+	
+	private ProveedorDto proveedor;
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
+	public Integer getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getNombre() {
@@ -99,7 +82,7 @@ public class Empleado implements Serializable {
 	public void setFechaSalida(LocalDateTime fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
-	
+
 	public boolean getActivo() {
 		return activo;
 	}
@@ -108,12 +91,28 @@ public class Empleado implements Serializable {
 		this.activo = activo;
 	}
 
-	public Rol getRol() {
+	public RolDto getRol() {
 		return rol;
 	}
 
-	public void setRol(Rol rol) {
+	public void setRol(RolDto rol) {
 		this.rol = rol;
+	}
+
+	public boolean isExterno() {
+		return externo;
+	}
+
+	public void setExterno(boolean externo) {
+		this.externo = externo;
+	}
+
+	public ProveedorDto getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorDto proveedor) {
+		this.proveedor = proveedor;
 	}
 
 }

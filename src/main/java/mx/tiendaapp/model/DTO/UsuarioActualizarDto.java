@@ -2,7 +2,7 @@ package mx.tiendaapp.model.DTO;
 
 import java.io.Serializable;
 
-public class EmpleadoActualizarDto implements Serializable {
+public class UsuarioActualizarDto implements Serializable {
 
 	/**
 	 * serial de la clase
