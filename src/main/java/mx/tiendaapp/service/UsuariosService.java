@@ -204,7 +204,10 @@ public class UsuariosService implements IUsuariosService {
 		proveedor.setRfc(request.getRfc());
 		proveedor.setTelefono(request.getTelefono());
 		
-		usuario.setActivo(request.getEstatus());
+		usuario.setNombre(request.getNombre());
+		usuario.setApellidoPaterno(request.getApellidoPaterno());
+		usuario.setApellidoMaterno(request.getApellidoMaterno());
+		usuario.setActivo(true);
 		usuario.setProveedor(prRepository.save(proveedor));
 		
 		try {

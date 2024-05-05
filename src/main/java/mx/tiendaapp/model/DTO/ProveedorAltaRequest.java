@@ -22,8 +22,6 @@ public class ProveedorAltaRequest implements Serializable {
 	private String telefono;
 	
 	private String direccion;
-	
-	private Boolean estatus;
 
 	public String getNombre() {
 		return nombre;
@@ -81,12 +79,5 @@ public class ProveedorAltaRequest implements Serializable {
 		this.direccion = direccion;
 	}
 
-	public Boolean getEstatus() {
-		return estatus;
-	}
-
-	public void setEstatus(Boolean estatus) {
-		this.estatus = estatus;
-	}
 	
 }
